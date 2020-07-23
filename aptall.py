@@ -98,8 +98,20 @@ def main():
         inst(argv[1])
     elif argv[1] == "-r" or argv[1] == "-R":
         remo(argv[2])
+    elif argv[1] == "-h" or argv[1] == "--help":
+        helb = """Usage: aptall [option] <package name>
+
+If there are no options or package name updates and upgrades all packages
+If there is only package name without an option then installs the package
+
+Options:
+    -h, --help : Prints help
+    -r, -R     : Removes given package"""
+        print(helb)
 
 try:
     main()
+    os.system("rm -f temp.txt")
 except KeyboardInterrupt:
     print("\nInterrupted")
+    os.system("rm -f temp.txt")
