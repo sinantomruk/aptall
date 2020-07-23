@@ -35,7 +35,7 @@ def parser(txt, i, flag):
 
 
 def inst(appName):
-    temp = "temp.txt"
+    temp = "/tmp/aptall/temp.txt"
     cmd = "aptitude search " + appName + " > " + temp
     os.system(cmd)
 
@@ -62,7 +62,7 @@ def inst(appName):
 
 
 def remo(appName):
-    temp = "temp.txt"
+    temp = "/tmp/aptall/temp.txt"
     cmd = "aptitude search " + appName + " > " + temp
     os.system(cmd)
 
@@ -82,7 +82,7 @@ def remo(appName):
     
     a = -1
     while a > i or a < 0:
-        print("\nPlease select what you want to install")
+        print("\nPlease select what you want to remove")
         a = int(input(" >> "))
 
     if input("Are you sure [y/N] ") == "y":
@@ -91,6 +91,7 @@ def remo(appName):
 
 
 def main():
+    os.system("mkdir -p /tmp/aptall")
     if len(argv) == 1:
         cmd = "sudo apt update && sudo apt upgrade"
         os.system(cmd)
@@ -111,7 +112,5 @@ Options:
 
 try:
     main()
-    os.system("rm -f temp.txt")
 except KeyboardInterrupt:
     print("\nInterrupted")
-    os.system("rm -f temp.txt")
