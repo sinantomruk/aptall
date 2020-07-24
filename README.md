@@ -18,15 +18,15 @@ $ sudo make install
 
 ## Usage
 
-Here som examples
+Here some examples
 
 Upgrade packages
-```command
+```console
 $ aptall
 ```
 
 Install
-```command
+```console
 $ aptall telegram
 6)node-telegram-bot-api
     node.js module for Telegram Bot API
@@ -46,7 +46,7 @@ Please select what you want to install
 ```
 
 Remove
-```command
+```console
 $ aptall -r chromium
 1)chromium-browser
     Transitional package - chromium-browser -> chromium snap
