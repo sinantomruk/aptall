@@ -6,9 +6,12 @@ all:
 
 install:
 	@mkdir -p $(DESTDIR)$(BINDIR)
-	@cp aptall.py $(DESTDIR)$(BINDIR)/aptall
-	@chmod 755 $(DESTDIR)$(BINDIR)/aptall
-	@echo aptall has been installed on your device
+	@test -f $(DESTDIR)$(BINDIR)/aptitude \
+	    && test -f $(DESTDIR)$(BINDIR)/python3 \
+	    && cp aptall.py $(DESTDIR)$(BINDIR)/aptall \
+	    && chmod 755 $(DESTDIR)$(BINDIR)/aptall \
+	    && echo aptall has been installed on your device \
+	    || echo "You need to install aptitude and python3"
 
 uninstall:
 	@rm -rf $(DESTDIR)$(BINDIR)/aptall

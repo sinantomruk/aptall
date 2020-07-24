@@ -58,7 +58,7 @@ Please select what you want to remove
 ```
 
 ## TODO
-- [ ] Chance order of remove
+- [x] Chance order of remove
 - [ ] Ability to select more than one package
 - [ ] apt-cache instead of aptitude, for less dependency
 - [ ] Better code

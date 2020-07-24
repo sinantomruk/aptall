@@ -16,10 +16,10 @@ class clrs:
     LIGHT_GRAY="\033[0;37m"
     COLOR_NONE="\e[0m"
 
-def parser(txt, i, flag):
+def parser(txt, i):
     text = str(txt)
     x = text.split(" ", 4)
-    if flag == True:
+    if i != "-1":
         isInstalled = " [Installed]" if x[0] == "i" else ""
         a = clrs.BLUE + i + ")" + clrs.GREEN + x[2] + clrs.BOLD_BLUE + isInstalled \
                 + clrs.LIGHT_GRAY + "\n    " + x[4]
@@ -27,11 +27,10 @@ def parser(txt, i, flag):
         return x[2]
     else:
         isInstalled = True if x[0] == "i" else False
-        a = clrs.BLUE + i + ")" + clrs.GREEN + x[2] + clrs.BOLD_BLUE \
+        a = ")" + clrs.GREEN + x[2] + clrs.BOLD_BLUE \
                 + clrs.LIGHT_GRAY + "\n    " + x[4]
         if isInstalled == True:
-            print(a)
-            return x[2]
+            return (a, x[2])
 
 
 def inst(appName):
@@ -49,7 +48,7 @@ def inst(appName):
     theList = []
     
     for txt in asd:
-        theList.append(parser(txt, str(i), True))
+        theList.append(parser(txt, str(i)))
         i = i-1
     
     a = -1
@@ -70,23 +69,25 @@ def remo(appName):
     asd = f.read()
     asd = asd.splitlines()
 
-    i = 1
-    
     theList = []
     
     for txt in asd:
-        val = parser(txt, str(i), False)
+        val = parser(txt, "-1")
         if val != None:
             theList.append(val)
-            i = i+1
+
+    length = len(theList)
+
+    for i, txt in enumerate(theList):
+        print(clrs.BLUE + str(length-i) + theList[i][0])
     
     a = -1
-    while a > i or a < 0:
+    while a > length or a < 0:
         print("\nPlease select what you want to remove")
         a = int(input(" >> "))
 
-    if input("Are you sure [y/N] ") == "y":
-        cmd = "sudo apt remove " + theList[a-1]
+    if input(theList[length-a][1] + " will be removed, are you sure [y/N] ") == "y":
+        cmd = "sudo apt remove " + theList[length-a][1]
         os.system(cmd)
 
 
