@@ -20,6 +20,22 @@ $ sudo make install
 
 Here some examples
 
+Help
+```console
+$ aptall --help
+usage: aptall [-h] [-i] [-r] [-a] [-u] [<Package Name>]
+
+positional arguments:
+  <Package Name>    Name of the package
+
+optional arguments:
+  -h, --help        show this help message and exit
+  -i, --install     Install the given package, same as 'aptall <package name>'
+  -r, --remove      Remove the given package
+  -a, --autoremove  Remove unused packages
+  -u, --upgrade     Upgrade packages, same as using without argument
+```
+
 Upgrade packages
 ```console
 $ aptall

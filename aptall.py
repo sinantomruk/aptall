@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 
-from sys import argv
+import sys
 import os
+import argparse
 
 class clrs:
     RED="\033[0;31m"
@@ -15,6 +16,10 @@ class clrs:
     WHITE="\033[1;37m"
     LIGHT_GRAY="\033[0;37m"
     COLOR_NONE="\e[0m"
+
+def upgr(*args):
+        cmd = "sudo apt update && sudo apt upgrade"
+        os.system(cmd)
 
 def parser(txt, i):
     text = str(txt)
@@ -91,25 +96,67 @@ def remo(appName):
         os.system(cmd)
 
 
+def autoremo(*args):
+        cmd = "sudo apt autoremove"
+        os.system(cmd)
+
+
 def main():
     os.system("mkdir -p /tmp/aptall")
-    if len(argv) == 1:
-        cmd = "sudo apt update && sudo apt upgrade"
-        os.system(cmd)
-    elif argv[1][0] != "-":
-        inst(argv[1])
-    elif argv[1] == "-r" or argv[1] == "-R":
-        remo(argv[2])
-    elif argv[1] == "-h" or argv[1] == "--help":
-        helb = """Usage: aptall [option] <package name>
+    
+    parse = argparse.ArgumentParser()
+    
+    parse.add_argument("package", metavar="<Package Name>",
+            nargs='?', help="Name of the package")
+    parse.add_argument("-i", "--install",
+            dest='funcs', action="append_const", const=inst,
+            help="Install the given package, same as 'aptall <package name>'")
+    parse.add_argument("-r", "--remove",
+            dest='funcs', action='append_const', const=remo,
+            help="Remove the given package")
+    parse.add_argument("-a", "--autoremove",
+            dest='funcs', action="append_const", const=autoremo,
+            help="Remove unused packages")
+    parse.add_argument("-u", "--upgrade",
+            dest='funcs', action="append_const", const=upgr,
+            help="Upgrade packages, same as using without argument")
 
-If there are no options or package name updates and upgrades all packages
-If there is only package name without an option then installs the package
+    args = parse.parse_args()
+    if not args.package:
+        if not args.funcs:
+            upgr()
+        else:
+            for func in args.funcs:
+                if func.__name__ != "upgr" and func.__name__ != "autoremo":
+                    sys.exit("Wrong usage, please check help page: aptall -h")
+                func()
+    else:
+        if not args.funcs:
+            inst(args.package)
+        else:
+            for func in args.funcs:
+                func(args.package)
 
-Options:
-    -h, --help : Prints help
-    -r, -R     : Removes given package"""
-        print(helb)
+
+
+
+#    if len(argv) == 1:
+#        cmd = "sudo apt update && sudo apt upgrade"
+#        os.system(cmd)
+#    elif argv[1][0] != "-":
+#        inst(argv[1])
+#    elif argv[1] == "-r" or argv[1] == "-R":
+#        remo(argv[2])
+#    elif argv[1] == "-h" or argv[1] == "--help":
+#        helb = """Usage: aptall [option] <package name>
+#
+#If there are no options or package name updates and upgrades all packages
+#If there is only package name without an option then installs the package
+#
+#Options:
+#    -h, --help : Prints help
+#    -r, -R     : Removes given package"""
+#        print(helb)
 
 try:
     main()
