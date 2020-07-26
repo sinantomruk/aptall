@@ -1,18 +1,18 @@
 ### Aptall
 
-A simple tool to use apt easier
+A simple tool to use apt easier. Inspired from pacman and [yay](https://github.com/Jguer/yay)
 
 ## Installation
 
 Aptall requires:
 
-- Python 3
+- Python3
 - Aptitude
 - Make (Only for installation)
 
 After installing these dependencies, aptall can be installed by make.
 
-```command
+```console
 $ sudo make install
 ```
 
@@ -34,6 +34,7 @@ optional arguments:
   -r, --remove      Remove the given package
   -a, --autoremove  Remove unused packages
   -u, --upgrade     Upgrade packages, same as using without argument
+  -f, --file        Read package names from given file, separated by lines and download them
 ```
 
 Upgrade packages
