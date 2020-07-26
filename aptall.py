@@ -19,8 +19,8 @@ class clrs:
 
 
 def upgr(*args):
-        cmd = "sudo apt update && sudo apt upgrade"
-        os.system(cmd)
+    cmd = "sudo apt update && sudo apt upgrade"
+    os.system(cmd)
 
 
 def parser(txt, i):
@@ -99,8 +99,17 @@ def remo(appName):
 
 
 def autoremo(*args):
-        cmd = "sudo apt autoremove"
-        os.system(cmd)
+    cmd = "sudo apt autoremove"
+    os.system(cmd)
+
+
+def fromfile(fileName):
+    f = open(fileName, "r")
+    asd = f.read()
+    asd = asd.splitlines()
+    
+    cmd = "sudo apt install " + ' '.join(asd)
+    os.system(cmd)
 
 
 def main():
@@ -122,6 +131,9 @@ def main():
     parse.add_argument("-u", "--upgrade",
             dest='funcs', action="append_const", const=upgr,
             help="Upgrade packages, same as using without argument")
+    parse.add_argument("-f", "--file",
+            dest='funcs', action="append_const", const=fromfile,
+            help="Read package names from given file, separated by lines and download them")
 
     args = parse.parse_args()
     if not args.package:
