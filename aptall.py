@@ -58,12 +58,26 @@ def inst(appName):
         theList.append(parser(txt, str(i)))
         i = i-1
     
-    a = -1
-    while a > length or a < 0:
-        print("\nPlease select what you want to install")
-        a = int(input(" >> "))
+    theList.reverse()
+
+    print("\nPlease select what you want to install. Ex: 1 | 1 2 3 | 1-4")
+    a = str(input(" >> "))
+
+    appList = []
+
+    if '-' in a:
+        a = a.split('-')
+        for index in range( int(a[0]), int(a[1]) ):
+            appList.append(theList[ index-1 ])
+        apps = " ".join(appList)
+    else:
+        a = a.split()
+        for index in a:
+            appList.append(theList[ int(index)-1 ])
+        apps = " ".join(appList)
+
     
-    cmd = "sudo apt install " + theList[length-a]
+    cmd = "sudo apt install " + apps
     os.system(cmd)
 
 
@@ -88,14 +102,26 @@ def remo(appName):
     for i, txt in enumerate(theList):
         print(clrs.BLUE + str(length-i) + theList[i][0])
     
-    a = -1
-    while a > length or a < 0:
-        print("\nPlease select what you want to remove")
-        a = int(input(" >> "))
+    print("\nPlease select what you want to remove. Ex: 1 | 1 2 3 | 1-4")
+    a = str(input(" >> "))
 
-    if input(theList[length-a][1] + " will be removed, are you sure [y/N] ") == "y":
-        cmd = "sudo apt remove " + theList[length-a][1]
-        os.system(cmd)
+    appList = []
+
+    theList.reverse()
+
+    if '-' in a:
+        a = a.split('-')
+        for index in range( int(a[0]), int(a[1]) ):
+            appList.append(theList[ index-1 ][1])
+        apps = " ".join(appList)
+    else:
+        a = list(a.split())
+        for index in a:
+            appList.append(theList[ int(index)-1 ][1])
+        apps = " ".join(appList)
+
+    cmd = "sudo apt remove " + apps
+    os.system(cmd)
 
 
 def autoremo(*args):

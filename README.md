@@ -58,7 +58,7 @@ $ aptall telegram
 1)telegram-purple
     Purple plugin to support Telegram
 
-Please select what you want to install
+Please select what you want to install. Ex: 1 | 1 2 3 | 1-4
  >>
 ```
 
@@ -70,12 +70,10 @@ $ aptall -r chromium
 2)chromium-codecs-ffmpeg-extra
     Transitional package - chromium-codecs-ffmpeg-extra -> chromium-ffmpeg snap
 
-Please select what you want to remove
+Please select what you want to remove. Ex: 1 | 1 2 3 | 1-4
  >>
 ```
 
 ## TODO
 - [x] Chance order of remove
-- [ ] Ability to select more than one package
-- [ ] apt-cache instead of aptitude, for less dependency
-- [ ] Better code
+- [x] Ability to select more than one package
